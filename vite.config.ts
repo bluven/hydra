@@ -1,10 +1,25 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
+import { resolve } from "path";
 import electron from 'vite-plugin-electron/simple'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src")
+    }
+  },
+  // global css
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+        additionalData: `@import "@/styles/var.less";`
+      }
+    }
+  },
   plugins: [
     react(),
     electron({
