@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Login } from "@/api/interface";
-import { loginApi } from "@/api/modules/login";
+// import { loginApi } from "@/api/modules/login";
 import { HOME_URL } from "@/config/config";
 // import { useTranslation } from "react-i18next";
 import { setTabsList } from "@/redux/modules/tabs";
-import { setToken } from "@/redux/modules/global";
+// import { setToken } from "@/redux/modules/global";
 import { useDispatch } from "@/redux";
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import md5 from "js-md5";
@@ -23,8 +23,8 @@ const LoginForm = () => {
 		try {
 			setLoading(true);
 			loginForm.password = md5(loginForm.password);
-			const { data } = await loginApi(loginForm);
-			dispatch(setToken(data!.access_token));
+			// const { data } = await loginApi(loginForm);
+			// dispatch(setToken(data!.access_token));
 			dispatch(setTabsList([]));
 			message.success("登录成功！");
 			navigate(HOME_URL);
