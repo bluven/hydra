@@ -8,7 +8,7 @@ import { RootState, useSelector } from "@/redux";
  * @description 路由守卫组件
  * */
 const AuthRouter = (props: { children: JSX.Element }) => {
-	const { token } = useSelector((state: RootState) => state.global);
+	// const { token } = useSelector((state: RootState) => state.global);
 	// * Dynamic Router(动态路由，根据后端返回的菜单数据生成的一维数组)
 	const { authRouter } = useSelector((state: RootState) => state.auth);
 

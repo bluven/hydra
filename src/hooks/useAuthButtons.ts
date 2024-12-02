@@ -10,7 +10,6 @@ const useAuthButtons = () => {
 	const { authButtons } = useSelector((state: RootState) => state.auth);
 	const { pathname } = useLocation();
 	const route = searchRoute(pathname, routerArray);
-
 	return {
 		BUTTONS: authButtons[route.meta!.key!] || {}
 	};
