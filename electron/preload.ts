@@ -19,7 +19,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
     return ipcRenderer.invoke(channel, ...omit)
   },
 
-  printBrowserPath: (path: string) => ipcRenderer.send('print-browser-path', path)
+  setBrowserPath: (path: string) => ipcRenderer.send('set-browser-path', path),
+  getBrowserPath: () => ipcRenderer.invoke('get-browser-path')
   // You can expose other APTs you need here.
   // ...
 })

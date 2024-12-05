@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import "./index.less";
 
 const BrowserConfigure = () => {
@@ -9,8 +9,15 @@ const BrowserConfigure = () => {
         // setBrowserPath(e.target.value);
       const path = fileRef.current.files[0].path
       setBrowserPath(path);
-      window.ipcRenderer.printBrowserPath(path);
+      window.ipcRenderer.setBrowserPath(path);
     };
+
+    useEffect(() => {
+      window.ipcRenderer.getBrowserPath().then((path) => {
+        setBrowserPath(path);
+        console.log(path)
+      });
+    }, [])
 
     return (
       <div>

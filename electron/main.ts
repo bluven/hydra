@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import settings from './settings'
 
 // const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -68,9 +69,16 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
-  ipcMain.on('print-browser-path', (event, filepath: string) => {
+  ipcMain.on('set-browser-path', (event, filepath: string) => {
     console.log(`Title: ${filepath}`)
+    settings.setValue('browserPath', filepath)
   })
 
+  ipcMain.handle('get-browser-path', ()=> {
+    console.log('Get browser path', settings.getValue('browserPath'))
+    return settings.getValue('browserPath') as string
+  })
+
+  settings.load()
   createWindow()
 })
