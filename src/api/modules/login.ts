@@ -264,6 +264,11 @@ export const getMenuList = () => {
 						"isLink": "http://www.spicyboy.cn"
 					}
 				]
+			},
+			{
+				"icon": "ChromeOutlined",
+				"title": "Browser Configuration",
+				"path": "/browser-configure"
 			}
 		],
 		"msg": "成功"
