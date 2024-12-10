@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import settings from './settings'
+import browser from './browser'
 
 // const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -69,14 +70,26 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
-  ipcMain.on('set-browser-path', (event, filepath: string) => {
+  ipcMain.on('set-browser-path', (_event, filepath: string) => {
     console.log(`Title: ${filepath}`)
-    settings.setValue('browserPath', filepath)
+    settings.setBrowserPath(filepath)
   })
 
   ipcMain.handle('get-browser-path', ()=> {
-    console.log('Get browser path', settings.getValue('browserPath'))
-    return settings.getValue('browserPath') as string
+    console.log('Get browser path', settings.getBrowserPath)
+    return settings.getBrowserPath()
+  })
+
+  ipcMain.handle('test-browser-path', async ()=> {
+    let result: {ok: boolean, error: string} = { ok: false, error: ''};
+    try {
+      await browser.testBrowserIsConfigured()
+      result.ok = true
+    } catch(e) {
+      result.error = e.toString()
+    }
+
+    return result
   })
 
   settings.load()

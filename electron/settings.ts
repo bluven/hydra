@@ -39,8 +39,18 @@ function setValue(key: string, value: any) {
     fs.writeFileSync(SETTINGS_PATH, data, {flush: true})
 }
 
+function getBrowserPath(): string {
+    return getValue('browserPath') as string
+}
+
+function setBrowserPath(value: string) {
+    return setValue('browserPath', value)
+}
+
 export default {
     load,
     getValue,
-    setValue
+    setValue,
+    getBrowserPath,
+    setBrowserPath
 }
