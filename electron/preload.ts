@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from 'electron'
+import type { User, BrowserActivity, handleBrowserActivity } from './browser'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -21,7 +22,13 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 
   setBrowserPath: (path: string) => ipcRenderer.send('set-browser-path', path),
   getBrowserPath: () => ipcRenderer.invoke('get-browser-path'),
-  testBrowserPath: () => ipcRenderer.invoke('test-browser-path')
-  // You can expose other APTs you need here.
-  // ...
+  testBrowserPath: () => ipcRenderer.invoke('test-browser-path'),
+  getUsers: () => ipcRenderer.invoke('get-users'),
+  getUser: (name: string) => ipcRenderer.invoke('get-user', name),
+  addUser: (user: User) => ipcRenderer.send('add-user', user),
+  deleteUser: (name: string) => ipcRenderer.send('delete-user', name),
+  openBrowser: (name: string) => ipcRenderer.send('open-browser', name),
+  closeBrowser: (name: string) => ipcRenderer.send('close-browser', name),
+  onBrowserActivity: (cb: handleBrowserActivity) => ipcRenderer.on('browser-activity', cb),
+  offAllBrowserActivity: () => ipcRenderer.removeAllListeners('browser-activity')
 })

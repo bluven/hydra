@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Flex, notification, Space } from 'antd';
-
+import { Button, Flex, notification } from 'antd';
 import "./index.less";
-import { testBrowserIsConfigured } from 'electron/browser';
+import UserList from './users/index'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
-
 
 const BrowserConfigure = () => {
     const [notificationAPI, contextHolder] = notification.useNotification();
@@ -65,6 +63,9 @@ const BrowserConfigure = () => {
           <Button type="primary" onClick={testBrowserIsConfigured}>Test Browser Path</Button>
           <Button>Default Button</Button>
         </Flex>
+        <div>
+          <UserList/>
+        </div>
       </div>
     );
 }

@@ -1,20 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { app } from 'electron'
+import { ipcMain } from 'electron'
+import {APP_FOLDER_PATH, initAppFolder} from './appData'
 
 type Settings = {[key: string]: any}
 
+const SETTINGS_PATH = path.join(APP_FOLDER_PATH, 'Settings.json')
 const SETTINGS: Settings = {} 
 
-const APP_PATH = app.getPath('userData')
-const APP_FOLDER_PATH = path.join(APP_PATH, 'Application')
-const SETTINGS_PATH = path.join(APP_FOLDER_PATH, 'Settings.json')
-
 function init() {
-    if (!fs.existsSync(APP_FOLDER_PATH)) {
-        fs.mkdirSync(APP_FOLDER_PATH, {recursive: true})
-    }
-
+    initAppFolder()
     if (!fs.existsSync(SETTINGS_PATH)) {
         fs.writeFileSync(SETTINGS_PATH, '{}', {flush: true})
     }
@@ -26,6 +21,18 @@ function load() {
     const data = fs.readFileSync(SETTINGS_PATH)
     const tmp = JSON.parse(data.toString())
     Object.assign(SETTINGS, tmp)
+}
+
+function registerIpcListeners() {
+    ipcMain.on('set-browser-path', (_event, filepath: string) => {
+    console.log(`Title: ${filepath}`)
+    setBrowserPath(filepath)
+  })
+
+  ipcMain.handle('get-browser-path', ()=> {
+    console.log('Get browser path', getBrowserPath)
+    return getBrowserPath()
+  })
 }
 
 function getValue(key: string): any {
@@ -49,8 +56,6 @@ function setBrowserPath(value: string) {
 
 export default {
     load,
-    getValue,
-    setValue,
+    registerIpcListeners,
     getBrowserPath,
-    setBrowserPath
 }

@@ -70,28 +70,11 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
-  ipcMain.on('set-browser-path', (_event, filepath: string) => {
-    console.log(`Title: ${filepath}`)
-    settings.setBrowserPath(filepath)
-  })
+  browser.registerIpcListeners()
+  browser.loadUsers()
 
-  ipcMain.handle('get-browser-path', ()=> {
-    console.log('Get browser path', settings.getBrowserPath)
-    return settings.getBrowserPath()
-  })
-
-  ipcMain.handle('test-browser-path', async ()=> {
-    let result: {ok: boolean, error: string} = { ok: false, error: ''};
-    try {
-      await browser.testBrowserIsConfigured()
-      result.ok = true
-    } catch(e) {
-      result.error = e.toString()
-    }
-
-    return result
-  })
-
+  settings.registerIpcListeners()
   settings.load()
+
   createWindow()
 })
