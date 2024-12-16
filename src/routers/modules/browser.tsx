@@ -8,16 +8,16 @@ const routers: Array<RouteObject> = [
 	{
 		element: <LayoutIndex />,
 		meta: {
-			title: "Browser Configuration"
+			title: "Browser Management"
 		},
 		children: [
 			{
-				path: "/browser-configure",
-				element: lazyLoad(React.lazy(() => import("@/views/browserConfig/index"))),
+				path: "/browser",
+				element: lazyLoad(React.lazy(() => import("@/views/browser/index"))),
 				meta: {
 					requiresAuth: false,
-					title: "Browser Configuration",
-					key: "browser-config"
+					title: "Browser Management",
+					key: "browser-management"
 				}
 			},
 		]

@@ -101,7 +101,9 @@ const UserList: React.FC = () => {
 
   return (
       <>
-        <AddUser onCreateUser={loadUsers}/>
+        <Space style={{float: 'right'}}>
+          <AddUser onCreateUser={loadUsers}/>
+        </Space>
         <Table<User> columns={columns} dataSource={users} />
       </>
   )

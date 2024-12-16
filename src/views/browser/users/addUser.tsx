@@ -34,7 +34,7 @@ const AddUser: React.FC<AddUserProps> = ({ onCreateUser }) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        Add User
       </Button>
       <Modal 
         title="Add User" 

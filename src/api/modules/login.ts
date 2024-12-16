@@ -267,8 +267,8 @@ export const getMenuList = () => {
 			},
 			{
 				"icon": "ChromeOutlined",
-				"title": "Browser Configuration",
-				"path": "/browser-configure"
+				"title": "Browser Management",
+				"path": "/browser"
 			}
 		],
 		"msg": "成功"
