@@ -1,8 +1,7 @@
 import { ipcRenderer, contextBridge } from 'electron'
-import type { User, BrowserActivity, handleBrowserActivity } from './browser'
+import type { User, handleBrowserActivity } from './browser'
 
-// --------- Expose some API to the Renderer process ---------
-contextBridge.exposeInMainWorld('ipcRenderer', {
+const API = {
   on(...args: Parameters<typeof ipcRenderer.on>) {
     const [channel, listener] = args
     return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))
@@ -31,4 +30,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   closeBrowser: (name: string) => ipcRenderer.send('close-browser', name),
   onBrowserActivity: (cb: handleBrowserActivity) => ipcRenderer.on('browser-activity', cb),
   offAllBrowserActivity: () => ipcRenderer.removeAllListeners('browser-activity')
-})
+}
+
+export type IpcRendererAPI = typeof API
+
+contextBridge.exposeInMainWorld('ipcRenderer', API)

@@ -14,3 +14,5 @@ export interface RouteObject {
 	meta?: MetaProps;
 	isLink?: string;
 }
+
+export type RouteArray = RouteObject[]

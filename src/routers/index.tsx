@@ -1,18 +1,15 @@
 import { Navigate, useRoutes } from "react-router-dom";
-import { RouteObject } from "@/routers/interface";
+import { RouteObject, RouteArray } from "@/routers/interface";
 import Login from "@/views/login/index";
 
+interface RouteModule {
+	default: RouteArray,
+}
+
 // * 导入所有router
-const metaRouters = import.meta.glob("./modules/*.tsx", { eager: true });
+const metaRouters = import.meta.glob<RouteModule>("./modules/*.tsx", { eager: true });
 
-// * 处理路由
-export const routerArray: RouteObject[] = [];
-Object.keys(metaRouters).forEach(item => {
-	Object.keys(metaRouters[item]).forEach((key: any) => {
-		routerArray.push(...metaRouters[item][key]);
-	});
-});
-
+export const routerArray = Object.values(metaRouters).map(mod => mod.default).flat()
 export const rootRouter: RouteObject[] = [
 	{
 		path: "/",

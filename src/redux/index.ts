@@ -1,9 +1,7 @@
-import { configureStore, combineReducers, Tuple } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { TypedUseSelectorHook, useDispatch as useReduxDispatch, useSelector as useReduxSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
-import { thunk as reduxThunk } from "redux-thunk";
-import reduxPromise from "redux-promise";
 import global from "./modules/global";
 import menu from "./modules/menu";
 import tabs from "./modules/tabs";
@@ -29,7 +27,6 @@ const persistReducerConfig = persistReducer(persistConfig, reducer);
 // store
 export const store = configureStore({
 	reducer: persistReducerConfig,
-	middleware: () => new Tuple(reduxThunk, reduxPromise),
 	devTools: true
 });
 

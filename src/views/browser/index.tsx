@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button, Divider, message } from 'antd';
 import "./index.less";
 import UserList from './users/index'
 
 const BrowserConfigure = () => {
     const [browserPath, setBrowserPath] = useState('');
-    const fileRef = useRef(null); 
-
-    const onChange=(e: React.FormEvent<HTMLInputElement>) => {
-        // setBrowserPath(e.target.value);
-      const path = fileRef.current.files[0].path
+    const fileRef = useRef<HTMLInputElement>(null!); 
+   
+    const onChange=() => {
+      const path = fileRef.current.files?.[0].path ?? '';
       setBrowserPath(path);
       window.ipcRenderer.setBrowserPath(path);
     };

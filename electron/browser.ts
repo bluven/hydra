@@ -3,6 +3,8 @@ import { ipcMain, IpcRendererEvent } from 'electron'
 import settings from './settings'
 import path from 'node:path';
 import fs from 'node:fs';
+// import utils from '@shared/utils'
+
 import {APP_FOLDER_PATH, initAppFolder} from './appData'
 
 const USERS_FILE_PATH = path.join(APP_FOLDER_PATH, 'Users.json')
@@ -11,7 +13,7 @@ const USER_DATA_DIR = path.join(APP_FOLDER_PATH, 'userData')
 export interface User {
     name: string,
     description?: string,
-    processing: true|false,
+    processing?: true|false,
     browserRunning?: boolean,
     browser?: Browser,
 }
@@ -192,7 +194,7 @@ function registerIpcListeners() {
       await testBrowserIsConfigured()
       result.ok = true
     } catch(e) {
-      result.error = e.toString()
+    //   result.error = utils.getErrorMessage(e)
     }
 
     return result

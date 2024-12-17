@@ -32,14 +32,17 @@ class RequestHttp {
 		 * token校验(JWT) : 接受服务器返回的token,存储到redux/本地储存当中
 		 */
 		this.service.interceptors.request.use(
-			(config: AxiosRequestConfig) => {
+			(config) => {
 				NProgress.start();
 				// * 将当前请求添加到 pending 中
 				axiosCanceler.addPending(config);
 				// * 如果当前请求不需要显示 loading,在api服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
 				config.headers!.noLoading || showFullScreenLoading();
 				const token: string = store.getState().global.token;
-				return { ...config, headers: { ...config.headers, "x-access-token": token } };
+
+				config.headers['x-access-token'] = token
+				// return { ...config, headers: { ...config.headers, "x-access-token": token } };
+				return config
 			},
 			(error: AxiosError) => {
 				return Promise.reject(error);
