@@ -3,7 +3,12 @@ import { Space, Table, Badge, Button, message, Popconfirm } from 'antd';
 import type { TableProps } from 'antd';
 import AddUser  from './addUser';
 import type { BrowserActivity, User } from 'electron/browser';
+import utils from 'shared/utils';
 import { IpcRendererEvent } from 'electron';
+
+
+// just not to trigger compile error
+console.log(utils.getErrorMessage)
 
 const BrowserStatus = (running: boolean) => {
   if (running) {
