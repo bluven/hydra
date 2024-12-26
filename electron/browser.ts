@@ -3,7 +3,7 @@ import { ipcMain, IpcRendererEvent } from 'electron'
 import settings from './settings'
 import path from 'node:path';
 import fs from 'node:fs';
-// import utils from 'shared/utils'
+import utils from '@shared/utils'
 
 import {APP_FOLDER_PATH, initAppFolder} from './appData'
 
@@ -194,7 +194,7 @@ function registerIpcListeners() {
       await testBrowserIsConfigured()
       result.ok = true
     } catch(e) {
-    //   result.error = utils.getErrorMessage(e)
+      result.error = utils.getErrorMessage(e)
     }
 
     return result

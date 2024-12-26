@@ -31,6 +31,8 @@ export const rootRouter: RouteObject[] = [
 	}
 ];
 
+console.log(routerArray)
+
 const Router = () => {
 	const routes = useRoutes(rootRouter);
 	return routes;

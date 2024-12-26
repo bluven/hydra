@@ -13,6 +13,8 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 	const { authRouter } = useSelector((state: RootState) => state.auth);
 
 	const { pathname } = useLocation();
+
+	console.log(pathname)
 	const route = searchRoute(pathname, rootRouter);
 
 	// * 判断当前路由是否需要访问权限(不需要权限直接放行)

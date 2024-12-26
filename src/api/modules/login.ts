@@ -266,6 +266,23 @@ export const getMenuList = () => {
 				]
 			},
 			{
+				"icon": "PaperClipOutlined",
+				"title": "WebView Test",
+				"path": "/jianguo",
+				"children": [
+					{
+						"icon": "AppstoreOutlined",
+						"path": "/jianguo/bluven",
+						"title": "JianGuo For Bluven",
+					},
+					{
+						"icon": "AppstoreOutlined",
+						"path": "/jianguo/yan",
+						"title": "JianGuo For Yan",
+					}
+				]
+			},
+			{
 				"icon": "ChromeOutlined",
 				"title": "Browser Management",
 				"path": "/browser"
